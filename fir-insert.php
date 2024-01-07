@@ -14,7 +14,7 @@ if(isset($_POST['add-user'])){
     $photo_tmp_name = $_FILES['photo']['tmp_name'];
     $photo_size = $_FILES['photo']['size'];
     $photo_type = $_FILES['photo']['type'];
-
+    
     $photo_dir = "img-uploads/$u_name" .$photo_name;
     
     move_uploaded_file($photo_tmp_name , $photo_dir);

@@ -63,7 +63,9 @@ $result = mysqli_query($cn , $sql);
 
       <div class="mb-3">
         <label class="form-label">Photo<span class="text-danger fw-bold">*</span></label>
-        <input type="file" name="photo" class="form-control form-control-sm"  value="<?php echo $photo ?>" required>
+        <input type="file" name="new_image" class="form-control form-control-sm">
+        <input type="hidden" name="old_image" class="form-control form-control-sm"  value="<?php echo $photo ?>" >
+
       </div>
        <div class="d-grid">
         <button type="submit" name="edit-user"  class="btn btn-primary w-50 m-auto">Save & Submit</button>

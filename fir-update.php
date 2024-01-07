@@ -7,16 +7,37 @@ if(isset($_POST['edit-user'])){
     $u_email = $_POST['u_email'];
     $u_age = $_POST['u_age'];
     $u_address = $_POST['u_address'];
-    $photo = $_FILES['photo'];
-
-    $photo_name = $_FILES['photo']['name'];
-    $photo_tmp_name = $_FILES['photo']['tmp_name'];
-    $photo_size = $_FILES['photo']['size'];
-    $photo_type = $_FILES['photo']['type'];
-    $photo_dir = "img-uploads/$u_name " .$photo_name;
+    // $photo = $_FILES['photo'];
 
 
-    $sql = "UPDATE user_info SET name='$u_name' , email='$u_email' , age='$u_age' , address='$u_address' , photo='$photo_dir' WHERE id='$u_id' " ;
+        //cod for image update
+        if(empty($_FILES['new_image']['name'])){
+            $photo = $_POST['old_image'];
+           }
+           else{
+              // post image move in folder and uploads in database
+              $photo_new =  $_FILES['new_image'];
+           
+              $photo_name = $_FILES['new_image']['name'];
+              $photo_size = $_FILES['new_image']['size'];
+              $photo_type = $_FILES['new_image']['type'];
+              $photo_tmp_name = $_FILES['new_image']['tmp_name'];
+              //post image because we will send image directory in database
+              $photo = "img-uploads/$u_name" . $photo_name;
+              // move in folder function
+              move_uploaded_file($photo_tmp_name, $photo);
+
+
+              
+    $photo_dir = "img-uploads/$u_name" .$photo_name;
+    
+    move_uploaded_file($photo_tmp_name , $photo_dir);
+           }
+
+
+
+
+    $sql = "UPDATE user_info SET name='$u_name' , email='$u_email' , age='$u_age' , address='$u_address' , photo='$photo' WHERE id='$u_id' " ;
     $result = mysqli_query($cn , $sql);
 
     if($result){
