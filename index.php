@@ -93,6 +93,8 @@
                     </tr>
                 <?php
                     $i++;
+
+            
                   }
                 }
                 ?>
@@ -127,8 +129,7 @@
             echo "<div>$pagination </div>";
 
 
-
-            echo "<b>Records : $limit / $total_records</b>";
+            echo "<b>Total Records :  $total_records</b>";
 
             ?>
           </div>
