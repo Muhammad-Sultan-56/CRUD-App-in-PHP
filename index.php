@@ -28,12 +28,16 @@
       <div class="row">
         <div class="col-md-12">
 
-
-          <div class="d-grid">
-            <a href="add-user.php" class="btn btn-primary w-25"> Add Students</a>
+          <div class="d-flex justify-content-between">
+            <div class="d-grid">
+              <a href="add-user.php" class="btn btn-primary"> Add Students</a>
+            </div>
+            <div class="text-end">
+              <input type="text" id="searchInput" class="form-control" onkeyup="liveSearch()" placeholder="Search for names...">
+            </div>
           </div>
           <!-------------- table start ---------->
-          <div class="table-responsive">
+          <div class="table-responsive" id="dataTable">
             <table class="table table-striped table-hover my-4">
               <thead>
                 <tr>
@@ -69,7 +73,7 @@
                   $pagination_qry = "SELECT * FROM user_info ORDER BY id DESC LIMIT $start,$limit"; // query for pagination
                   $pagination_qry_result = mysqli_query($cn, $pagination_qry);
 
-                  $i = $start+1; // to show the exact number of user not id
+                  $i = $start + 1; // to show the exact number of user not id
                   while ($row = mysqli_fetch_assoc($pagination_qry_result)) {
 
                 ?>
@@ -93,8 +97,6 @@
                     </tr>
                 <?php
                     $i++;
-
-            
                   }
                 }
                 ?>
@@ -140,3 +142,48 @@
 </body>
 
 </html>
+
+
+
+<!-- <script>
+        function liveSearch() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("dataTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1]; // Assuming name is in the second column
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script> -->
+
+
+    <!-- Add this script to your existing HTML file -->
+<script src="./jquery/jquery.js"></script>
+
+<script>
+    function liveSearch() {
+        var input, filter;
+        input = $("#searchInput");
+        filter = input.val().toUpperCase();
+
+        $.ajax({
+            type: "POST",
+            url: "live_search.php",
+            data: { query: filter },
+            success: function(response) {
+                $("#dataTable tbody").html(response);
+            }
+        });
+    }
+</script>
