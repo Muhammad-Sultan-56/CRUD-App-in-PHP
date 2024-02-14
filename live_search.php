@@ -7,7 +7,6 @@ if (isset($_POST['query'])) {
 
     $query = "SELECT * FROM user_info WHERE name LIKE '%{$search}%' OR email LIKE '%{$search}%' OR address LIKE '%{$search}%'";
     $result = mysqli_query($cn, $query);
-
     $output = '';
 
     if (mysqli_num_rows($result) > 0) {
@@ -26,11 +25,12 @@ if (isset($_POST['query'])) {
             $output .= '</tr>';
         }
     } else {
-        $output .= '<tr><td colspan="7">No results found</td></tr>';
+        $output .= '<tr class="text-center"><td colspan="7">No results found</td></tr>';
     }
 
     echo $output;
+
+    mysqli_close($cn);
 }
 
-mysqli_close($cn);
-?>
+

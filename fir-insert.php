@@ -23,9 +23,17 @@ if(isset($_POST['add-user'])){
     VALUES ('$u_name' , '$u_email' , '$u_age' , '$u_address' , '$photo_dir')" ;
     $result = mysqli_query($cn , $sql);
     if($result){
+
+        $_SESSION['status'] = "Congratulations! User Added Successfully";
+        $_SESSION['status_code'] = "success";
+
+
         header("Location:index.php");
     }
-
+else{
+    $_SESSION['status'] = "Sorry! User is not Added";
+    $_SESSION['status_code'] = "error";
+}
 
 }
 
