@@ -32,8 +32,6 @@
             <div class="d-grid">
               <a href="add-user.php" class="btn btn-primary"> + Add Students</a>
 
-              <a href="export.php" class="btn btn-primary"> Export Data</a>
-
             </div>
             <div class="text-end">
               <input type="text" id="searchInput" class="form-control" onkeyup="liveSearch()" placeholder="Search here...">
